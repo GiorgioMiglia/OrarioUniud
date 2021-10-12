@@ -3,7 +3,7 @@
 # This program is dedicated to the public domain under the CC0 license.
 
 import logging
-
+import private
 from telegram import Update, ForceReply, parsemode
 from telegram.constants import PARSEMODE_MARKDOWN_V2
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
@@ -59,11 +59,18 @@ def orario(update: Update, context: CallbackContext) -> None:
     string = string + str(orario1[day])
     update.message.reply_text(string, parse_mode=PARSEMODE_MARKDOWN_V2)
     
+def help(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text(helptxt, parse_mode=PARSEMODE_MARKDOWN_V2)
+
+def link(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text(private.linkList, parse_mode=PARSEMODE_MARKDOWN_V2)
+
+
 
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
-    updater = Updater("TOKEN")
+    updater = Updater(private.token)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -72,6 +79,9 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("send", send_command))
     dispatcher.add_handler(CommandHandler("orario", orario))
+    dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(CommandHandler("link", link))
+
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
@@ -93,6 +103,16 @@ orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Arc\. degl
             "",
             ""
         ]
+
+helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informatica presso l'Università degli studi di Udine, " 
+           "i comandi disponibili sono:\n"
+           "*/help* \-\-  mostra questo messaggio\n"
+           "*/orario \<giorno\>* \-\- mostra l'orario del giorno indicato, accetta in input anche *ieri*, *oggi*, *domani*\." 
+           " Se omesso mostra l'orario del giorno o, dopo le 17, di quello successivo\n"
+           "*/link* \-\- ottieni i link utili dei vari gruppi e delle risorse utili\n"
+           "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud"
+)
+
 
 
 
