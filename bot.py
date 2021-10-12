@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# pylint: disable=C0116,W0613
+# This program is dedicated to the public domain under the CC0 license.
 
 import logging
 
@@ -24,21 +27,35 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def send_command(update: Update, context: CallbackContext) -> None:  # this metod is used to send messages to the channel @informaticaUniud 
-    update.message.reply_text('messaggio inviato')                   # used for important news
+def send_command(update: Update, context: CallbackContext) -> None:
+    """Send a message when the command /send is issued."""
+    update.message.reply_text('messaggio inviato')
     context.bot.send_message(chat_id="@informaticauniud", text=update.message.text[5:])
+    #vedi issue numero 140 della libreria
 
-
-def orario(update: Update, context: CallbackContext) -> None:  # this metod send the class schedule of the day (the day after if it's after the 19 GMT, or of monday if it's the weekend
+def orario(update: Update, context: CallbackContext) -> None:
     now=datetime.now()
     day=datetime.today().weekday()
-    if(now.hour>18):
-        day+=1
-        string = "L'orario di domani è:\n"
+    text=update.message.text[8:]
+    if text.lower() in settimana:
+        string = "L'orario di " + text +" è:\n"
+        day = settimana.index(text.lower())
     else :
-        string = "L'orario di oggi è:\n"
+        if text.lower()=="domani" or (now.hour>18 and text == ""):
+            day+=1
+            string = "L'orario di domani è:\n"
+        elif text.lower() == "ieri":
+            day -=1
+            if day>=0:
+                string = "L'orario di ieri era:\n"
+            else:
+                string = "Nessuna lezione nel weekend, l'orario di Venderdì era:\n"
+                day=4
+        else :
+            string = "L'orario di oggi è:\n"
     if(day > 4):
-        string = "L'orario di Lunedì è:\n"
+        string = "Nessuna lezione nel weekend, la prossima lezione è Lunedì\. \nL'orario di Lunedì è:\n"
+        day = 0
     string = string + str(orario1[day])
     update.message.reply_text(string, parse_mode=PARSEMODE_MARKDOWN_V2)
     
@@ -66,12 +83,18 @@ def main() -> None:
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Architettura degli Elaboratori*    C1  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Architettura degli Elaboratori*    Laboratorio ",
-            "10:30\-12:30 *Analisi Matematica*    C1  \n13:30\-15:30 *Architettura degli Elaboratori*    C1 \n15:30\-17:30 *Programmazione*    Laboratorio ",
+settimana = ["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"]
+
+orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Arc\. degli Elaboratori*    C1  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Arc\. degli Elaboratori*    Lab ",
+            "10:30\-12:30 *Analisi Matematica*    C1  \n13:30\-15:30 *Arc\. degli Elaboratori*    C1 \n15:30\-17:30 *Programmazione*    Lab ",
             "Nessuna lezione",
-            "10:30\-12:30 *Architettura degli Elaboratori*    Laboratorio  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Matematica Discreta*    C1 ",          
-            "10:30\-12:30 *Programmazione*    Laboratorio  \n13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 ",     
+            "10:30\-12:30 *Arc\. degli Elaboratori*    Lab  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Matematica Discreta*    C1 ",          
+            "10:30\-12:30 *Programmazione*    Lab  \n13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 ",     
+            "",
+            ""
         ]
+
+
 
 if __name__ == '__main__':
     main()
