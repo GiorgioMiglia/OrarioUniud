@@ -75,22 +75,11 @@ def up(update: Update, context: CallbackContext) :
     string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
     if update.effective_chat.id==private.adminID :
         context.bot.send_message(chat_id=private.adminID, text="Aggiornamento in corso...")
-        subprocess.call("pull.sh", shell=True)
+        subprocess.call("./pull.sh", shell=True)
     else :
         string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
         context.bot.send_message(chat_id=private.adminID, text=string)
 
-
-
-def run(update: Update, context: CallbackContext) :
-    if update.effective_chat.id==private.adminID :
-        context.bot.send_message(chat_id=private.adminID, text="Esecuzione in corso...")
-        subprocess.run(text=update.message.text[4:], shell=True)
-        update.message.reply_text("Comando eseguito")
-    else :
-        string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
-        context.bot.send_message(chat_id=private.adminID, text=string)
-        
 
 def main() -> None:
     """Start the bot."""
@@ -107,7 +96,6 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("link", link))
     dispatcher.add_handler(CommandHandler("update", up))
-    dispatcher.add_handler(CommandHandler("run", run))
 
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
