@@ -10,6 +10,7 @@ from telegram.constants import PARSEMODE_MARKDOWN_V2
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from datetime import datetime, time
 import pytz
+import subprocess
 
 # Enable logging
 logging.basicConfig(
@@ -48,11 +49,9 @@ def orario(update: Update, context: CallbackContext) -> None:
             string = "L'orario di domani è:\n"
         elif text.lower() == "ieri":
             day -=1
-            if day>=0:
-                string = "L'orario di ieri era:\n"
-            else:
-                string = "Nessuna lezione nel weekend, l'orario di Venderdì era:\n"
-                day=4
+            string = "L'orario di ieri era:\n"
+            if day<0:
+                string = "Nessuna lezione nel weekend\. \nL'orario di Lunedì era:\n"
         else :
             string = "L'orario di oggi è:\n"
     if(day > 4):
@@ -72,6 +71,27 @@ def sendDailyTimetable(context: CallbackContext) :
     string = "L'orario di oggi è:\n" + str(orario1[day])
     context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
 
+def up(update: Update, context: CallbackContext) :
+    string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
+    if update.effective_chat.id==private.adminID :
+        context.bot.send_message(chat_id=private.adminID, text="Aggiornamento in corso...")
+        subprocess.call("pull.sh", shell=True)
+    else :
+        string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
+        context.bot.send_message(chat_id=private.adminID, text=string)
+
+
+
+def run(update: Update, context: CallbackContext) :
+    if update.effective_chat.id==private.adminID :
+        context.bot.send_message(chat_id=private.adminID, text="Esecuzione in corso...")
+        subprocess.run(text=update.message.text[4:], shell=True)
+        update.message.reply_text("Comando eseguito")
+    else :
+        string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
+        context.bot.send_message(chat_id=private.adminID, text=string)
+        
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -86,6 +106,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("orario", orario))
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("link", link))
+    dispatcher.add_handler(CommandHandler("update", up))
+    dispatcher.add_handler(CommandHandler("run", run))
 
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
@@ -108,9 +130,7 @@ orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Arc\. degl
             "10:30\-12:30 *Analisi Matematica*    C1  \n13:30\-15:30 *Arc\. degli Elaboratori*    C1 \n15:30\-17:30 *Programmazione*    Lab ",
             "Nessuna lezione",
             "10:30\-12:30 *Arc\. degli Elaboratori*    Lab  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Matematica Discreta*    C1 ",          
-            "10:30\-12:30 *Programmazione*    Lab  \n13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 ",     
-            "",
-            ""
+            "10:30\-12:30 *Programmazione*    Lab  \n13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 "     
         ]
 
 helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informatica presso l'Università degli studi di Udine, " 
