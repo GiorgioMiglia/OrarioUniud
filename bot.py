@@ -3,11 +3,13 @@
 # This program is dedicated to the public domain under the CC0 license.
 
 import logging
+import queue
 import private
 from telegram import Update, ForceReply, parsemode
 from telegram.constants import PARSEMODE_MARKDOWN_V2
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from datetime import datetime
+from datetime import datetime, time
+import pytz
 
 # Enable logging
 logging.basicConfig(
@@ -34,14 +36,14 @@ def send_command(update: Update, context: CallbackContext) -> None:
     #vedi issue numero 140 della libreria
 
 def orario(update: Update, context: CallbackContext) -> None:
-    now=datetime.now()
+    now=datetime.now(pytz.timezone('Europe/Rome'))
     day=datetime.today().weekday()
     text=update.message.text[8:]
     if text.lower() in settimana:
         string = "L'orario di " + text +" è:\n"
         day = settimana.index(text.lower())
     else :
-        if text.lower()=="domani" or (now.hour>18 and text == ""):
+        if text.lower()=="domani" or (now.hour>17 and text == ""):
             day+=1
             string = "L'orario di domani è:\n"
         elif text.lower() == "ieri":
@@ -65,7 +67,10 @@ def help(update: Update, context: CallbackContext) -> None:
 def link(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(private.linkList, parse_mode=PARSEMODE_MARKDOWN_V2)
 
-
+def sendDailyTimetable(context: CallbackContext) :
+    day=datetime.today().weekday()
+    string = "L'orario di oggi è:\n" + str(orario1[day])
+    context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
 
 def main() -> None:
     """Start the bot."""
@@ -85,9 +90,13 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
+    #job queue to send timed messages
+    jQueue = updater.job_queue
+
+    jQueue.run_daily(sendDailyTimetable, time(hour=8, minute=0, tzinfo=pytz.timezone('Europe/Rome')) , days=(0,1,2,3,4))
     # Start the Bot
     updater.start_polling()
-
+  
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
