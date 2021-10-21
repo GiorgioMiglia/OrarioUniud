@@ -118,7 +118,7 @@ orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Arc\. degl
             "10:30\-12:30 *Analisi Matematica*    C1  \n13:30\-15:30 *Arc\. degli Elaboratori*    C1 \n15:30\-17:30 *Programmazione*    Lab ",
             "Nessuna lezione",
             "10:30\-12:30 *Arc\. degli Elaboratori*    Lab  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Matematica Discreta*    C1 ",          
-            "10:30\-12:30 *Programmazione*    Lab  \n13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 "     
+            "13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 "     
         ]
 
 helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informatica presso l'Università degli studi di Udine, " 
