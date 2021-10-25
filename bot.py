@@ -36,6 +36,7 @@ def send_command(update: Update, context: CallbackContext) -> None:
     context.bot.send_message(chat_id="@informaticauniud", text=update.message.text[5:])
     #vedi issue numero 140 della libreria
 
+
 def orario(update: Update, context: CallbackContext) -> None:
     now=datetime.now(pytz.timezone('Europe/Rome'))
     day=datetime.today().weekday()
@@ -60,16 +61,25 @@ def orario(update: Update, context: CallbackContext) -> None:
     string = string + str(orario1[day])
     update.message.reply_text(string, parse_mode=PARSEMODE_MARKDOWN_V2)
     
+
 def help(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(helptxt, parse_mode=PARSEMODE_MARKDOWN_V2)
+
 
 def link(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(private.linkList, parse_mode=PARSEMODE_MARKDOWN_V2)
 
+
 def sendDailyTimetable(context: CallbackContext) :
+    global oldId 
+    if (oldId != 0):
+        context.bot.delete_message(chat_id = private.adminID,   message_id = oldId)
+        context.bot.send_message(chat_id=private.adminID, text="fatto")
     day=datetime.today().weekday()
     string = "L'orario di oggi è:\n" + str(orario1[day])
-    context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
+    msg = context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
+    oldId = msg.message_id
+
 
 def up(update: Update, context: CallbackContext) :
     string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
@@ -111,6 +121,8 @@ def main() -> None:
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
+
+oldId = 0
 
 settimana = ["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"]
 
