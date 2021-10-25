@@ -81,12 +81,11 @@ def sendDailyTimetable(context: CallbackContext) :
 
 
 def up(update: Update, context: CallbackContext) :
-    string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
     if update.effective_chat.id==private.adminID :
         context.bot.send_message(chat_id=private.adminID, text="Aggiornamento in corso...")
         subprocess.call("./pull.sh", shell=True)
     else :
-        string = "qualcuno ha mandato al bot il messaggio:\n" + update.message.text
+        string = update.effective_user + " ha mandato al bot il messaggio:\n" + update.message.text
         context.bot.send_message(chat_id=private.adminID, text=string)
 
 
