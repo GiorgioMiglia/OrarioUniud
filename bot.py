@@ -73,8 +73,7 @@ def link(update: Update, context: CallbackContext) -> None:
 def sendDailyTimetable(context: CallbackContext) :
     global oldId 
     if (oldId != 0):
-        context.bot.delete_message(chat_id = private.adminID,   message_id = oldId)
-        context.bot.send_message(chat_id=private.adminID, text="fatto")
+        context.bot.delete_message(chat_id = "@informaticauniud" ,   message_id = oldId)
     day=datetime.today().weekday()
     string = "L'orario di oggi è:\n" + str(orario1[day])
     msg = context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
