@@ -93,9 +93,12 @@ def up(update: Update, context: CallbackContext) :
 def getMenu(update: Update, context: CallbackContext):
     week = menu.getWeek()
     day = datetime.today().weekday()
-    update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
-    update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
-    update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+    if (day>4):
+        update.message.reply_text("La mensa è chiusa nel fine settimana", parse_mode=PARSEMODE_MARKDOWN_V2)
+    else:
+        update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+        update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+        update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
 def main() -> None:
@@ -149,7 +152,7 @@ helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informat
            " Se omesso mostra l'orario del giorno o, dopo le 17, di quello successivo\n"
            "*/link* \-\- ottieni i link utili dei vari gruppi e delle risorse utili\n"
            "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud\n"
-           "*/menu* \-\- mostra il menu del giorno \(_BETA, se si dovessero riscontrare errori o incongruenza con il menù effettico contattare [Giorgio](tg://user?id=" + str(private.adminID) + ")_\)"
+           "*/menu* \-\- mostra il menu del giorno \(_BETA, se si dovessero riscontrare errori o incongruenze con il menù effettivo contattare [Giorgio](tg://user?id=" + str(private.adminID) + ")_\)"
 )
 
 

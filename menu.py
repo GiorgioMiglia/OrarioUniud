@@ -41,11 +41,22 @@ settimana2 = {
 }
 
 settimana3 = {
-    "PRIMO" : [""],    # todo: riempire dalla foto
-    "SECONDO" : [""],
-    "CONTORNO" : [""]
-}
-
+    "PRIMO" : ["Pasta al tonno olive e capperi \n" + primiFissi,
+               "Crema di zucca \nRisotto alla salsiccia" + primiFissi,
+               "Pasta ai formaggi \n" + primiFissi,
+               "Orzo e fagioli \nCannelloni di carne al forno \n" + primiFissi,
+               "Pasta alla panna e speck \n" + primiFissi],    
+    "SECONDO" : ["Wurstel farciti (formaggio e pancetta \nFiletto di merluzzo alla mediterranea \nFettina di bovino ai ferri \n" + secondiFissi,
+                 "Frittata \nSeppie in umido alla veneta \nFettina di suino ai ferri \n" + secondiFissi,
+                 "Spezzatino di bovino ai ferri \nFalafel \nFiletto di troat ai ferri \nTagliere di salumi \n" + secondiFissi,
+                 "Fettina di suino alla milanese \nPiadina con verdure \nFettina di pollo ai ferri \n" + secondiFissi,
+                 "Scaloppine di bovino alla pizzaiola \nUova strapazzate \nTrancio di salmone ai ferri \n" + secondiFissi],  
+    "CONTORNO" : ["Purè di patate \nFagiolini all'olio \n" + contorniFissi,
+                  "Patate alla triestina \nSpinaci al vapore \n" + contorniFissi + "\nDolce",
+                  "Patate al vapore \nCarote al burro \n" + contorniFissi,
+                  "Patatine fritte \nZucchine trifolate \n" + contorniFissi +"\nDolce",
+                  "Patate al forno \nMacedonia di verdure \n" + contorniFissi]  
+}                     
 settimana4 = {
     "PRIMO" : [""],   #  todo: riempire dalla foto
     "SECONDO" : [""],
