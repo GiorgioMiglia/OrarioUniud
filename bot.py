@@ -11,6 +11,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from datetime import datetime, time
 import pytz
 import subprocess
+import menu
 
 # Enable logging
 logging.basicConfig(
@@ -89,6 +90,14 @@ def up(update: Update, context: CallbackContext) :
         context.bot.send_message(chat_id=private.adminID, text=string)
 
 
+def getMenu(update: Update, context: CallbackContext):
+    week = menu.getWeek()
+    day = datetime.today().weekday()
+    update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -104,6 +113,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("link", link))
     dispatcher.add_handler(CommandHandler("update", up))
+    dispatcher.add_handler(CommandHandler("menu", getMenu))
+
 
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
@@ -137,7 +148,8 @@ helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informat
            "*/orario \<giorno\>* \-\- mostra l'orario del giorno indicato, accetta in input anche *ieri*, *oggi*, *domani*\." 
            " Se omesso mostra l'orario del giorno o, dopo le 17, di quello successivo\n"
            "*/link* \-\- ottieni i link utili dei vari gruppi e delle risorse utili\n"
-           "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud"
+           "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud\n"
+           "*/menu* \-\- mostra il menu del giorno \(_BETA, se si dovessero riscontrare errori o incongruenza con il menù effettico contattare [Giorgio](tg://user?id=" + str(private.adminID) + ")_\)"
 )
 
 
