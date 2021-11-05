@@ -37,7 +37,7 @@ settimana2 = {
                   "Patate in tecia \n Finocchi gratinati \n" + contorniFissi,
                   "Purè di patate \nFagiolini al pomodoro \n" + contorniFissi + "\nDolce",
                   "Patate prezzemolate \nCarote all'olio \n" + contorniFissi,
-                  "Patare alla paprika \nCavolini di Bruxelles al burro \n" + contorniFissi ]
+                  "Patate alla paprika \nCavolini di Bruxelles al burro \n" + contorniFissi ]
 }
 
 settimana3 = {

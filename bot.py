@@ -4,14 +4,13 @@
 
 import logging
 import queue
-import private
 from telegram import Update, ForceReply, parsemode
 from telegram.constants import PARSEMODE_MARKDOWN_V2
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from datetime import datetime, time
 import pytz
 import subprocess
-import menu
+import menu, dati, private
 
 # Enable logging
 logging.basicConfig(
@@ -27,7 +26,7 @@ def start(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
     user = update.effective_user
     update.message.reply_markdown_v2(
-        fr'Hi {user.mention_markdown_v2()}\!',
+        fr'Ciao {user.mention_markdown_v2()}\!',
     )
 
 
@@ -38,13 +37,13 @@ def send_command(update: Update, context: CallbackContext) -> None:
     #vedi issue numero 140 della libreria
 
 
-def orario(update: Update, context: CallbackContext) -> None:
-    now=datetime.now(pytz.timezone('Europe/Rome'))
+def getOrario(update: Update, context: CallbackContext) -> None:  # * si potrebbe riscrivere per usare un metodo a sé per
+    now=datetime.now(pytz.timezone('Europe/Rome'))             # * ottenere il giorno richiesto in modo da usarlo anche per getMenu 
     day=datetime.today().weekday()
     text=update.message.text[8:]
-    if text.lower() in settimana:
+    if text.lower() in dati.settimana:
         string = "L'orario di " + text +" è:\n"
-        day = settimana.index(text.lower())
+        day = dati.settimana.index(text.lower())
     else :
         if text.lower()=="domani" or (now.hour>17 and text == ""):
             day+=1
@@ -59,12 +58,12 @@ def orario(update: Update, context: CallbackContext) -> None:
     if(day > 4):
         string = "Nessuna lezione nel weekend, la prossima lezione è Lunedì\. \nL'orario di Lunedì è:\n"
         day = 0
-    string = string + str(orario1[day])
+    string = string + str(dati.orario[day])
     update.message.reply_text(string, parse_mode=PARSEMODE_MARKDOWN_V2)
     
 
 def help(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(helptxt, parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text(dati.helptxt, parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
 def link(update: Update, context: CallbackContext) -> None:
@@ -76,7 +75,7 @@ def sendDailyTimetable(context: CallbackContext) :
     if (oldId != 0):
         context.bot.delete_message(chat_id = "@informaticauniud" ,   message_id = oldId)
     day=datetime.today().weekday()
-    string = "L'orario di oggi è:\n" + str(orario1[day])
+    string = "L'orario di oggi è:\n" + str(dati.orario[day])
     msg = context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
     oldId = msg.message_id
 
@@ -90,7 +89,7 @@ def up(update: Update, context: CallbackContext) :
         context.bot.send_message(chat_id=private.adminID, text=string)
 
 
-def getMenu(update: Update, context: CallbackContext):
+def getMenu(update: Update, context: CallbackContext): # todo : aggiungere la possibilità di chiedere il menù di un giorno specifisco
     week = menu.getWeek()
     day = datetime.today().weekday()
     if (day>4):
@@ -112,7 +111,7 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("send", send_command))
-    dispatcher.add_handler(CommandHandler("orario", orario))
+    dispatcher.add_handler(CommandHandler("orario", getOrario))
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("link", link))
     dispatcher.add_handler(CommandHandler("update", up))
@@ -136,24 +135,6 @@ def main() -> None:
 
 oldId = 0
 
-settimana = ["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"]
-
-orario1 = [  "08:30\-10:30 *Analisi Matematica*    C1 \n10:30\-12:30 *Arc\. degli Elaboratori*    C1  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Arc\. degli Elaboratori*    Lab ",
-            "10:30\-12:30 *Analisi Matematica*    C1  \n13:30\-15:30 *Arc\. degli Elaboratori*    C1 \n15:30\-17:30 *Programmazione*    Lab ",
-            "Nessuna lezione",
-            "10:30\-12:30 *Arc\. degli Elaboratori*    Lab  \n13:30\-15:30 *Programmazione*    C1 \n15:30\-17:30 *Matematica Discreta*    C1 ",          
-            "13:30\-15:30 *Analisi Matematica*    C1 \n15:30\-17:30 *Matematica Discreta*    C2 "     
-        ]
-
-helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informatica presso l'Università degli studi di Udine, " 
-           "i comandi disponibili sono:\n"
-           "*/help* \-\-  mostra questo messaggio\n"
-           "*/orario \<giorno\>* \-\- mostra l'orario del giorno indicato, accetta in input anche *ieri*, *oggi*, *domani*\." 
-           " Se omesso mostra l'orario del giorno o, dopo le 17, di quello successivo\n"
-           "*/link* \-\- ottieni i link utili dei vari gruppi e delle risorse utili\n"
-           "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud\n"
-           "*/menu* \-\- mostra il menu del giorno \(_BETA, se si dovessero riscontrare errori o incongruenze con il menù effettivo contattare [Giorgio](tg://user?id=" + str(private.adminID) + ")_\)"
-)
 
 
 
