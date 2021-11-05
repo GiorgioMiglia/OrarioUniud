@@ -10,7 +10,7 @@ Comandi disponibili :
 - **/send (msg)** manda **msg** nel canale associato, dà la possibilità agli utenti di mandare comunicazioni a tutti i membri del canale
 - **/menu** fornisce il menù del giorno della mensa **(ancora in fase di test)**
 
-Inoltre è disponibile il comando **/update** ad uso esclusivo dell'adimn per aggiornare automaticamente il bot con il codice presente su github (vedere [pull.sh](https://github.com/GiorgioMiglia/OrarioUniud/blob/main/pull.sh)
+Inoltre è disponibile il comando **/update** ad uso esclusivo dell'admin per aggiornare automaticamente il bot con il codice presente su github (vedere [pull.sh](https://github.com/GiorgioMiglia/OrarioUniud/blob/main/pull.sh)
 
 Come è strutturato il bot:
 - [bot.py](https://github.com/GiorgioMiglia/OrarioUniud/blob/main/bot.py) è il codice principale del bot con tutti i metodi necessari al suo funzionamento
