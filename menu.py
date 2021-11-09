@@ -42,7 +42,7 @@ settimana2 = {
 
 settimana3 = {
     "PRIMO" : ["Pasta al tonno olive e capperi \n" + primiFissi,
-               "Crema di zucca \nRisotto alla salsiccia" + primiFissi,
+               "Crema di zucca \nRisotto alla salsiccia \n" + primiFissi,
                "Pasta ai formaggi \n" + primiFissi,
                "Orzo e fagioli \nCannelloni di carne al forno \n" + primiFissi,
                "Pasta alla panna e speck \n" + primiFissi],    
