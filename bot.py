@@ -19,15 +19,26 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+def addToTxt(id):
+    database=open('chatId.txt', 'r')
+    lista=database.readlines()
+    database.close()
+    found=False
+    for riga in lista:
+        if str(id) in riga:
+            found=True
+            break
+    if not found:
+        database=open('chatId.txt', 'a')
+        database.write(str(id)+'\n')
+        database.close()
 
 # Define a few command handlers. These usually take the two arguments update and
 # context.
 def start(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /start is issued."""
     user = update.effective_user
-    update.message.reply_markdown_v2(
-        fr'Ciao {user.mention_markdown_v2()}\!',
-    )
+    addToTxt(str(update.effective_chat.id))
+    update.message.reply_markdown_v2("Ciao "+ user.mention_markdown_v2()+"\! \nUsa /help per avere la lista dei possibili comandi")
 
 
 def send_command(update: Update, context: CallbackContext) -> None:
@@ -100,6 +111,13 @@ def getMenu(update: Update, context: CallbackContext): # todo : aggiungere la po
         update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
+def getTotalUsers(update: Update, context: CallbackContext):
+    if update.effective_chat.id==private.adminID :
+        database=open('chatId.txt', 'r')
+        lista=database.readlines()
+        database.close()
+        context.bot.send_message(chat_id=private.adminID, text="Ci sono " + str(len(lista)) + " utenti")
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -116,7 +134,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("link", link))
     dispatcher.add_handler(CommandHandler("update", up))
     dispatcher.add_handler(CommandHandler("menu", getMenu))
-
+    dispatcher.add_handler(CommandHandler("user", getTotalUsers))
 
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))

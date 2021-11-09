@@ -15,5 +15,7 @@ helptxt =( "Questo bot è dedicato al primo anno del corso di laurea in Informat
            " Se omesso mostra l'orario del giorno o, dopo le 17, di quello successivo\n"
            "*/link* \-\- ottieni i link utili dei vari gruppi e delle risorse utili\n"
            "*/send \<msg\>* \-\- usato per note o comunicazioni importanti, manda \<msg\> nel canale @informaticaUniud\n"
-           "*/menu* \-\- mostra il menu del giorno \(_BETA, se si dovessero riscontrare errori o incongruenze con il menù effettivo contattare [Giorgio](tg://user?id=" + str(private.adminID) + ")_\)"
+           "*/menu* \-\- mostra il menu del giorno \(_BETA_\)\n"
+           "Per segnalazioni di problemi o suggerimenti [Contattami](tg://user?id=" + str(private.adminID) + ")\n"
+           "\n*Se usi questo bot e ti piace, puoi offrirmi un caffè cliccando [qui](https://www.paypal.com/paypalme/GiorgioMiglia)*\n"
 )
