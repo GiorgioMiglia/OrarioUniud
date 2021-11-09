@@ -56,12 +56,26 @@ settimana3 = {
                   "Patate al vapore \nCarote al burro \n" + contorniFissi,
                   "Patatine fritte \nZucchine trifolate \n" + contorniFissi +"\nDolce",
                   "Patate al forno \nMacedonia di verdure \n" + contorniFissi]  
-}                     
-settimana4 = {
-    "PRIMO" : [""],   #  todo: riempire dalla foto
-    "SECONDO" : [""],
-    "CONTORNO" : [""]
 }
+
+settimana4 = {
+    "PRIMO" : ["Risotto alla zucca \n" + primiFissi,
+               "Crema di funghi con crostini \nTagliatelle all'amatriciana \n" + primiFissi,
+               "Gnocchi al pomodoro e ricotta \n" + primiFissi,
+               "Minestrone di verdure \nPasta al salmone e pomodorini \n" + primiFissi,
+               "Pasta all'arrabbiata \n" + primiFissi],
+    "SECONDO" : ["Grigliata mista \(salsiccia e suino\) \nFish & Chips \(con Merluzzo\) \nBurger di tacchino ai ferri \n" + secondiFissi,
+                 "Filetto di sgombro al forno \nInvoltini di prosciutto e formaggio \nFettina di pollo ai ferri \n" + secondiFissi,
+                 "Uova al pomodoro \nCosce di pollo al forno \nBurger di trota ai ferri \nTagliere di salumi \n" + secondiFissi,
+                 "Scaloppina di tacchino ai funghi \nFrico \nFettina di suino ai ferri \n" + secondiFissi,
+                 "Caciucco alla livornese \nPolpette di riso e piselli \nFettina di bovino ai ferri \n" + secondiFissi],
+    "CONTORNO" : ["Patate alla paprika \nCarote prezzemolate \n" + contorniFissi + "\nDolce",
+                  "Crocchette di patate \nBieta al limone\n" + contorniFissi,
+                  "Purè di patate \nPiselli in umido \n" + contorniFissi + "\nDolce",
+                  "Patate al pomodoro \nCavolfiori gratinati \n" + contorniFissi,
+                  "Patate al rosmarino \nFagiolini al pomodoro \n" + contorniFissi],
+}
+# todo: menu invernale, primaverile, estivo
 
 settimana = [settimana1, settimana2, settimana3, settimana4]
 
