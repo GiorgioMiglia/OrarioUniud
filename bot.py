@@ -7,7 +7,7 @@ import queue
 from telegram import Update, ForceReply, parsemode
 from telegram.constants import PARSEMODE_MARKDOWN_V2
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from datetime import datetime, time
+from datetime import datetime, time, date
 import pytz
 import subprocess
 import menu, dati, private
@@ -18,6 +18,8 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+#* Metodi "generici"
 
 def addToTxt(id):
     database=open('chatId.txt', 'r')
@@ -33,56 +35,65 @@ def addToTxt(id):
         database.write(str(id)+'\n')
         database.close()
 
-# Define a few command handlers. These usually take the two arguments update and
-# context.
-def start(update: Update, context: CallbackContext) -> None:
+def getDay(text):
+    day=datetime.today().weekday()
+    week = 0
+    str = "oggi"
+    if text == '':
+        return day, week, str
+    text = text.lower()
+    if text in dati.settimana:
+        day = dati.settimana.index(text)
+    elif "domani" in text:
+        day += 1
+    elif "ieri" in text:
+        day -= 1
+    if day > 4:
+        week = 1
+        day = 0
+    elif day < 0 :
+        week = -1
+        day = 4
+    str = dati.settimana[day][:1].upper() + dati.settimana[day][1:]
+    return day, week, str
+
+oldId = 0
+
+#* Metodi che compiono azioni in corrispondenza dei vari comandi inviati al bot, vedere dispatcher (righe 134-141)
+
+def start(update: Update, context: CallbackContext) -> None:         # risponde al comando /start, raccoglie il chat id e dà il benvenuto all'utente sul bot
     user = update.effective_user
     addToTxt(str(update.effective_chat.id))
     update.message.reply_markdown_v2("Ciao "+ user.mention_markdown_v2()+"\! \nUsa /help per avere la lista dei possibili comandi")
 
 
-def send_command(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /send is issued."""
-    update.message.reply_text('messaggio inviato')
+def send_command(update: Update, context: CallbackContext) -> None:  #risponde a /send, manda il testo inviato dall'utente nel canale @informaticauniud
+    update.message.reply_text('Invio messaggio in corso...')
     context.bot.send_message(chat_id="@informaticauniud", text=update.message.text[5:])
-    #vedi issue numero 140 della libreria
+    #vedi issue numero 140 della libreria python-telegram-bot
 
 
-def getOrario(update: Update, context: CallbackContext) -> None:  # * si potrebbe riscrivere per usare un metodo a sé per
-    now=datetime.now(pytz.timezone('Europe/Rome'))             # * ottenere il giorno richiesto in modo da usarlo anche per getMenu 
-    day=datetime.today().weekday()
+def getOrario(update: Update, context: CallbackContext) -> None:  #risponde a /orario <msg>, fornisce l'orario del giorno indicato dall'utente o per il giorno corrente
+    now=datetime.now(pytz.timezone('Europe/Rome'))            
     text=update.message.text[8:]
-    if text.lower() in dati.settimana:
-        string = "L'orario di " + text +" è:\n"
-        day = dati.settimana.index(text.lower())
-    else :
-        if text.lower()=="domani" or (now.hour>17 and text == ""):
-            day+=1
-            string = "L'orario di domani è:\n"
-        elif text.lower() == "ieri":
-            day -=1
-            string = "L'orario di ieri era:\n"
-            if day<0:
-                string = "Nessuna lezione nel weekend\. \nL'orario di Lunedì era:\n"
-        else :
-            string = "L'orario di oggi è:\n"
-    if(day > 4):
-        string = "Nessuna lezione nel weekend, la prossima lezione è Lunedì\. \nL'orario di Lunedì è:\n"
-        day = 0
-    string = string + str(dati.orario[day])
+    day = getDay(text)
+    string = "L'orario di " + day[2] +" è:\n"
+    if day[1]:
+        string = "Nessuna lezione nel weekend\. \nL'orario di " + day[2]+ " è:\n"
+    string = string + str(dati.orario[day[0]])
     update.message.reply_text(string, parse_mode=PARSEMODE_MARKDOWN_V2)
     
 
-def help(update: Update, context: CallbackContext) -> None:
+def help(update: Update, context: CallbackContext) -> None:      #risponde a /help, fornisce il messaggio di aiuto (vedi help.txt su dati.py)
     update.message.reply_text(dati.helptxt, parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
-def link(update: Update, context: CallbackContext) -> None:
+def link(update: Update, context: CallbackContext) -> None:      #risponde a /link, fornisce lista di link utili
     update.message.reply_text(private.linkList, parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
-def sendDailyTimetable(context: CallbackContext) :
-    global oldId 
+def sendDailyTimetable(context: CallbackContext) :  # metodo invocato dal lunedì al venerdì alle 8:00 per inviare in automatico l'orario del giorno
+    global oldId       #oldId mi serve per cancellare l'orario del giorno prima dal canale
     if (oldId != 0):
         context.bot.delete_message(chat_id = "@informaticauniud" ,   message_id = oldId)
     day=datetime.today().weekday()
@@ -91,7 +102,21 @@ def sendDailyTimetable(context: CallbackContext) :
     oldId = msg.message_id
 
 
-def up(update: Update, context: CallbackContext) :
+def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>, fornisce il menu del giorno indicato (vedi menu.py)
+    day = getDay(update.message.text[6:])
+    weekNumber = date.today().isocalendar()[1] + day[1]
+    week = menu.getWeek(weekNumber) 
+    if day[1] == -1:
+        update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Venerdì era:", parse_mode=PARSEMODE_MARKDOWN_V2)
+        day = 0
+    elif day[1]:
+        update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+    update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+
+
+def up(update: Update, context: CallbackContext) :     #metodo disponibile solo per l'admin, risponde a /update e aggiorna il bot da github (vedi pull.sh)
     if update.effective_chat.id==private.adminID :
         context.bot.send_message(chat_id=private.adminID, text="Aggiornamento in corso...")
         subprocess.call("./pull.sh", shell=True)
@@ -100,23 +125,14 @@ def up(update: Update, context: CallbackContext) :
         context.bot.send_message(chat_id=private.adminID, text=string)
 
 
-def getMenu(update: Update, context: CallbackContext): # todo : aggiungere la possibilità di chiedere il menù di un giorno specifisco
-    week = menu.getWeek()
-    day = datetime.today().weekday()
-    if (day>4):
-        update.message.reply_text("La mensa è chiusa nel fine settimana", parse_mode=PARSEMODE_MARKDOWN_V2)
-    else:
-        update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
-        update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
-        update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day], parse_mode=PARSEMODE_MARKDOWN_V2)
-
-
-def getTotalUsers(update: Update, context: CallbackContext):
+def getTotalUsers(update: Update, context: CallbackContext): #riservato all'admin, fornisce una stima degli utenti attivi
     if update.effective_chat.id==private.adminID :
         database=open('chatId.txt', 'r')
         lista=database.readlines()
         database.close()
-        context.bot.send_message(chat_id=private.adminID, text="Ci sono " + str(len(lista)) + " utenti")
+        context.bot.send_message(chat_id=private.adminID, text="Ci sono " + str(len(lista)) + " utenti")      
+
+#* Metodo main che gestisce l'avvio dei metodi per i vari comandi 
 
 def main() -> None:
     """Start the bot."""
@@ -151,7 +167,6 @@ def main() -> None:
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-oldId = 0
 
 
 

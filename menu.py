@@ -1,5 +1,3 @@
-from datetime import datetime, date
-
 primiFissi = "Pasta o riso: \n\-al ragù di manzo \n\-al pomodoro \n\-in bianco"
 secondiFissi = "Formaggi freschi confezionati"
 contorniFissi = "Bis di contorni crudi"
@@ -79,7 +77,6 @@ settimana4 = {
 
 settimana = [settimana1, settimana2, settimana3, settimana4]
 
-def getWeek():
-    weekNumber = date.today().isocalendar()[1]
+def getWeek(weekNumber):
     x = (weekNumber+1)%4
     return settimana[x]
