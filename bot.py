@@ -37,12 +37,13 @@ def addToTxt(id):
 
 def getDay(text):
     day=datetime.today().weekday()
+    now=datetime.now(pytz.timezone('Europe/Rome')) 
     week = 0
-    str = "oggi"
-    if text == '':
-        return day, week, str
     text = text.lower()
-    if text in dati.settimana:
+    if text == '':
+        if now.hour > 17:
+            day += 1
+    elif text in dati.settimana:
         day = dati.settimana.index(text)
     elif "domani" in text:
         day += 1
@@ -73,8 +74,7 @@ def send_command(update: Update, context: CallbackContext) -> None:  #risponde a
     #vedi issue numero 140 della libreria python-telegram-bot
 
 
-def getOrario(update: Update, context: CallbackContext) -> None:  #risponde a /orario <msg>, fornisce l'orario del giorno indicato dall'utente o per il giorno corrente
-    now=datetime.now(pytz.timezone('Europe/Rome'))            
+def getOrario(update: Update, context: CallbackContext) -> None:  #risponde a /orario <msg>, fornisce l'orario del giorno indicato dall'utente o per il giorno corrente           
     text=update.message.text[8:]
     day = getDay(text)
     string = "L'orario di " + day[2] +" è:\n"
