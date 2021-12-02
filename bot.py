@@ -101,6 +101,9 @@ def sendDailyTimetable(context: CallbackContext) :  # metodo invocato dal luned�
     msg = context.bot.send_message(chat_id="@informaticauniud", text=string, parse_mode=PARSEMODE_MARKDOWN_V2)
     oldId = msg.message_id
 
+def helpMenu(update: Update, context: CallbackContext):
+    update.message.reply_text( menu.helpMensa, parse_mode=PARSEMODE_MARKDOWN_V2)
+
 
 def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>, fornisce il menu del giorno indicato (vedi menu.py)
     day = getDay(update.message.text[6:])
@@ -111,6 +114,8 @@ def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>,
         day = 0
     elif day[1]:
         update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
+    if day[0] == 1 or day[0] == 3:
+        update.message.reply_text('🍕🍕 PIZZA 🍕🍕')
     update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
     update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
     update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)

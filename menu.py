@@ -1,3 +1,6 @@
+from bot import helpMenu
+
+
 primiFissi = "Pasta o riso: \n\-al ragù di manzo \n\-al pomodoro \n\-in bianco"
 secondiFissi = "Formaggi freschi confezionati"
 contorniFissi = "Bis di contorni crudi"
@@ -74,6 +77,17 @@ settimana4 = {
                   "Patate al rosmarino \nFagiolini al pomodoro \n" + contorniFissi],
 }
 # todo: menu invernale, primaverile, estivo
+
+
+helpMenu = ("Con il ridotto puoi prendere:\n"
+             "- Pizza (forse anche il dolce)\n"
+             "- Primo, pane, contorno, dolce\n"
+             "- Secondo, pane, contorno dolce\n"
+             "\n"
+             "Con l'intero puoi prendere:\n"
+             "- Pizza, contorno, dolce\n"
+             "- Primo, secondo, pane, contorno, dolce"
+             )
 
 settimana = [settimana1, settimana2, settimana3, settimana4]
 
