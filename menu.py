@@ -80,6 +80,7 @@ settimana4 = {
 
 
 helpMenu = ("Con il ridotto puoi prendere:\n"
+             "- Pizza, contorno\n"
              "- Pizza, dolce\n"
              "- Primo, pane, contorno, dolce\n"
              "- Secondo, pane, contorno dolce\n"
