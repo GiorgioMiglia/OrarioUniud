@@ -156,6 +156,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("update", up))
     dispatcher.add_handler(CommandHandler("menu", getMenu))
     dispatcher.add_handler(CommandHandler("user", getTotalUsers))
+    dispatcher.add_handler(CommandHandler("helpmensa", helpMenu))
+
 
     # on non command i.e message - echo the message on Telegram
     #dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
