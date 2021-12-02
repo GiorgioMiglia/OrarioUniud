@@ -115,7 +115,7 @@ def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>,
     elif day[1]:
         update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
     if day[0] == 1 or day[0] == 3:
-        update.message.reply_text('🍕🍕 PIZZA 🍕🍕')
+        update.message.reply_text('PIZZA')
     update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
     update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
     update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
