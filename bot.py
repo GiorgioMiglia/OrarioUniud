@@ -75,6 +75,7 @@ def send_command(update: Update, context: CallbackContext) -> None:  #risponde a
 
 
 def getOrario(update: Update, context: CallbackContext) -> None:  #risponde a /orario <msg>, fornisce l'orario del giorno indicato dall'utente o per il giorno corrente           
+    update.message.reply_text("Questo orario si riferisce al primo semestre", parse_mode=PARSEMODE_MARKDOWN_V2)
     text=update.message.text[8:]
     day = getDay(text)
     string = "L'orario di " + day[2] +" è:\n"
@@ -108,17 +109,20 @@ def helpMenu(update: Update, context: CallbackContext):
 def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>, fornisce il menu del giorno indicato (vedi menu.py)
     day = getDay(update.message.text[6:])
     weekNumber = date.today().isocalendar()[1] + day[1]
-    week = menu.getWeek(weekNumber) 
-    if day[1] == -1:
-        update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Venerdì era:", parse_mode=PARSEMODE_MARKDOWN_V2)
-        day = 0
-    elif day[1]:
-        update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
-    if day[0] == 1 or day[0] == 3:
-        update.message.reply_text('PIZZA')
-    update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
-    update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
-    update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+    if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
+        update.message.reply_text("L'orario invernale non è ancora disponibile, se hai una foto del menù puoi inviarla a [Giorgio](tg://user?id=" + str(private.adminID) + ")", parse_mode=PARSEMODE_MARKDOWN_V2)
+    else:
+        week = menu.getWeek(weekNumber) 
+        if day[1] == -1:
+            update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Venerdì era:", parse_mode=PARSEMODE_MARKDOWN_V2)
+            day = 0
+        elif day[1]:
+            update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
+        if day[0] == 1 or day[0] == 3:
+            update.message.reply_text('PIZZA')
+        update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+        update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
+        update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
 
 
 def up(update: Update, context: CallbackContext) :     #metodo disponibile solo per l'admin, risponde a /update e aggiorna il bot da github (vedi pull.sh)
@@ -165,7 +169,8 @@ def main() -> None:
     #job queue to send timed messages
     jQueue = updater.job_queue
 
-    jQueue.run_daily(sendDailyTimetable, time(hour=8, minute=0, tzinfo=pytz.timezone('Europe/Rome')) , days=(0,1,2,3,4))
+    #* Disabilitato fino a inizio lezioni secondo semestre (01/03/2022)
+    #* jQueue.run_daily(sendDailyTimetable, time(hour=8, minute=0, tzinfo=pytz.timezone('Europe/Rome')) , days=(0,1,2,3,4))
     # Start the Bot
     updater.start_polling()
   
