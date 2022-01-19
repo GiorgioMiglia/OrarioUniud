@@ -5,7 +5,7 @@ primiFissi = "Pasta o riso: \n\-al ragù di manzo \n\-al pomodoro \n\-in bianco"
 secondiFissi = "Formaggi freschi confezionati"
 contorniFissi = "Bis di contorni crudi"
 
-settimana1 = {
+settimana1Au = {
     "PRIMO" : ["Gnocchi friulani \n" + primiFissi, 
                 "Pasta integrale alle melanzane e Taleggio \nPassato di verdure \n" + primiFissi, 
                 "Tagliatelle mare e monti \n" + primiFissi, 
@@ -23,7 +23,7 @@ settimana1 = {
                   "Patate al rosmarino \nPiselli in tecia \n" + contorniFissi ]
 }
 
-settimana2 = {
+settimana2Au = {
     "PRIMO" : ["Ravioli di magro panna e prosciutto cotto \n" + primiFissi,
                "Crema di zucchine e menta \nPasta al radicchio \n" + primiFissi,
                "Risotto alla parmigiana \n" + primiFissi,
@@ -41,7 +41,7 @@ settimana2 = {
                   "Patate alla paprika \nCavolini di Bruxelles al burro \n" + contorniFissi ]
 }
 
-settimana3 = {
+settimana3Au = {
     "PRIMO" : ["Pasta al tonno olive e capperi \n" + primiFissi,
                "Crema di zucca \nRisotto alla salsiccia \n" + primiFissi,
                "Pasta ai formaggi \n" + primiFissi,
@@ -59,7 +59,7 @@ settimana3 = {
                   "Patate al forno \nMacedonia di verdure \n" + contorniFissi]  
 }
 
-settimana4 = {
+settimana4Au = {
     "PRIMO" : ["Risotto alla zucca \n" + primiFissi,
                "Crema di funghi con crostini \nTagliatelle all'amatriciana \n" + primiFissi,
                "Gnocchi al pomodoro e ricotta \n" + primiFissi,
@@ -78,6 +78,29 @@ settimana4 = {
 }
 # todo: menu invernale, primaverile, estivo
 
+settimana1In = ""
+
+settimana2In = {
+    "PRIMO" : ["Pasta ricotta e pomodoro \n" + primiFissi,
+                "Pasta integrale prosciutto cotto e panna \n Crema di piselli \n" 
+                "Ricciole di ricotta e spinaci \n" + primiFissi,
+                "Tagliatelle all'amatriciana \n Crema di zucchine e menta \n" + primiFissi,
+                "Risotto al radicchio \n" + primiFissi],
+    "SECONDO" : ["Braciola di suino tex mex \nFalafel \nTrancio di salmone ai ferri \n" + secondiFissi,
+                 "Straccetti di pollo al curry \nStrudel di verdure \nFettina di suino ai ferri \n" + secondiFissi,
+                 "Caciucco alla livornese con crostini \nUova al pomodoro \nFettina di tacchino ai ferri \nTagliere di salumi \n" + secondiFissi,
+                 "Hamburger di bovino alla pizzaiola \nFrico di patate \nFiletto di sgombro ai ferri \n" + secondiFissi,
+                 "Costa di suino \nCous cous con verdure \nFettina di manzo ai ferri \n" + secondiFissi],
+    "CONTORNO" : ["Patate fritte \nBieta all'agro \n" + contorniFissi + "\nDolce",
+                  "Patate prezzemolate \nFinocchi gratinati \n" + contorniFissi,
+                  "Patate al forno \nMacedonia di verdure \n" + contorniFissi + "\nDolce",
+                  "Patate alla paprika \nBroccoli al vapore \n" + contorniFissi,
+                  "Purè \nFagioli in tecia \n" + contorniFissi],
+}
+
+settimana3In = ""
+
+settimana4In = ""
 
 helpMenu = ("Con il ridotto puoi prendere:\n"
              "- Pizza, contorno\n"
@@ -90,8 +113,13 @@ helpMenu = ("Con il ridotto puoi prendere:\n"
              "- Primo, secondo, pane, contorno, dolce"
              )
 
-settimana = [settimana1, settimana2, settimana3, settimana4]
+settimaneAutunno = [settimana1Au, settimana2Au, settimana3Au, settimana4Au]
+settimaneInverno = [settimana1In, settimana2In, settimana3In, settimana4In]
+
 
 def getWeek(weekNumber):
-    x = (weekNumber+1)%4
-    return settimana[x]
+    x = (weekNumber+2)%4 #per il menù autunnale +1, per invernale +2???? mensa rizzi ma che combini
+    print(x)
+    if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
+        return settimaneInverno[x]
+    return settimaneAutunno[x]

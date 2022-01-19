@@ -109,17 +109,15 @@ def helpMenu(update: Update, context: CallbackContext):
 def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>, fornisce il menu del giorno indicato (vedi menu.py)
     day = getDay(update.message.text[6:])
     weekNumber = date.today().isocalendar()[1] + day[1]
-    if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
+    week = menu.getWeek(weekNumber)
+    if week == "":
         update.message.reply_text("L'orario invernale non è ancora disponibile, se hai una foto del menù puoi inviarla a [Giorgio](tg://user?id=" + str(private.adminID) + ")", parse_mode=PARSEMODE_MARKDOWN_V2)
     else:
-        week = menu.getWeek(weekNumber) 
         if day[1] == -1:
             update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Venerdì era:", parse_mode=PARSEMODE_MARKDOWN_V2)
             day = 0
         elif day[1]:
             update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Lunedì sarà:", parse_mode=PARSEMODE_MARKDOWN_V2)
-        if day[0] == 1 or day[0] == 3:
-            update.message.reply_text('PIZZA')
         update.message.reply_text("*PRIMI:*\n" + week["PRIMO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
         update.message.reply_text("*SECONDI:*\n" + week["SECONDO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
         update.message.reply_text("*CONTORNI:*\n" + week["CONTORNO"][day[0]], parse_mode=PARSEMODE_MARKDOWN_V2)
