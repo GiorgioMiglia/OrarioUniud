@@ -82,7 +82,7 @@ settimana1In = ""
 
 settimana2In = {
     "PRIMO" : ["Pasta ricotta e pomodoro \n" + primiFissi,
-                "Pasta integrale prosciutto cotto e panna \n Crema di piselli \n" 
+                "Pasta integrale prosciutto cotto e panna \n Crema di piselli \n" + primiFissi,
                 "Ricciole di ricotta e spinaci \n" + primiFissi,
                 "Tagliatelle all'amatriciana \n Crema di zucchine e menta \n" + primiFissi,
                 "Risotto al radicchio \n" + primiFissi],
@@ -114,12 +114,11 @@ helpMenu = ("Con il ridotto puoi prendere:\n"
              )
 
 settimaneAutunno = [settimana1Au, settimana2Au, settimana3Au, settimana4Au]
-settimaneInverno = [settimana1In, settimana2In, settimana3In, settimana4In]
+settimaneInverno = [settimana1In, settimana2In, settimana3In, settimana4In] #cambiando l'ordine delle settiane in questo array si possono correggere le differenze (guarda comento sotto)
 
 
 def getWeek(weekNumber):
     x = (weekNumber+2)%4 #per il menù autunnale +1, per invernale +2???? mensa rizzi ma che combini
-    print(x)
     if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
         return settimaneInverno[x]
     return settimaneAutunno[x]
