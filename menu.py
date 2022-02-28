@@ -100,7 +100,24 @@ settimana2In = {
 
 settimana3In = ""
 
-settimana4In = ""
+settimana4In = {
+    "PRIMO" : ["Tagliatelle al pomodore e funghi \n" + primiFissi,
+                "Gnocchi alla romana \nZuppa di lenticchie" + primiFissi,
+                "Risotto zucca e robiola \n" + primiFissi,
+                "Pasta integrale alle verdure e zafferano \n" + primiFissi,
+                "Pasta tonno e olive \nVellutata piccante \n" + primiFissi],
+    "SECONDO" : ["Bocconcini di vitello in camicia \nUova strapazzate \nFiletto di sgombro ai ferri \n" + secondiFissi,
+                 "Fettina di suino alla milanese \nPomodori ripieni \nFettina di tacchino ai ferri \n" + secondiFissi,
+                 "Salsiccia al forno \nOmelette ricotta e spinaci \nFiletto di troata ai ferri \nTagliere di salumi \n" + secondiFissi,
+                 "Scaloppina di pollo alla senape \nFalafel \n Fettina di suino ai ferri \n" + secondiFissi,
+                 "Filetto di salmone al limone \n Frico di patate \n Fettina di bovino ai ferri \n" + secondiFissi],
+    "CONTORNO" : ["Purè \nMacedonia di verdure \n" + contorniFissi + "\nDolce",
+                  "Patate fritte \nPiselli in tecia \n" + contorniFissi,
+                  "Patate alla paprika \nBroccoli gratinati \n" + contorniFissi + "\nDolce",
+                  "Patate al rosmarino \nFinocchi al burro \n" + contorniFissi,
+                  "Patate sabbiosa \nCarote prezzemolate" + contorniFissi]
+}              
+
 
 helpMenu = ("Con il ridotto puoi prendere:\n"
              "- Pizza, contorno\n"
