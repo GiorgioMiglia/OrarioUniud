@@ -98,7 +98,23 @@ settimana2In = {
                   "Purè \nFagioli in tecia \n" + contorniFissi],
 }
 
-settimana3In = ""
+settimana3In = {
+    "PRIMO" : ["Spazle di spinaci alla panna \nZuppa di verdura \n" + primiFissi,
+               "Pasta al salmone e pomodorini \n" + primiFissi,
+               "Orzotto prosciutto e piselli \n" + primiFissi,
+               "Pasta aglio olio e peperoncino \nMinestra di fagioli \n"  + primiFissi,
+               "Pasta alla puttanesca \n" + primiFissi],
+    "SECONDO" : ["Platessa alla mugnaia \nPiadina di verdure \nBurger di tacchino ai ferri \n" + secondiFissi,
+                 "Fuselli di pollo al forno \nFrittata di formaggio \nPesce spada ai ferri \n" + secondiFissi,
+                 "Spalla di suino arrosto \nTorta salata \nFettina di manzo ai ferri \nTagliere di salumi" + secondiFissi,
+                 "Coniglio alle erbe aromatiche \nPolpette riso e piselli \nBurger di trota ai ferri \n" + secondiFissi,
+                 "Totani fritti \nUova al pomodoro \nBraciola di suino ai ferri \n" + secondiFissi],
+    "CONTORNO" : ["Patate al rosmarino \nCavoletti di Bruxell all'olio \n" + contorniFissi,
+                  "Purè \nMais e carote al burro \n" + contorniFissi +"\nDolce",
+                  "Crocchette di patate \nLenticchie al pomodoro \n" + contorniFissi,
+                  "Patate alla triestina \nSpinaci al vapore \n"  + contorniFissi + "\nDolce",
+                  "Patate prezzemolate \nCavolfiori gratinati \n" + contorniFissi]
+}
 
 settimana4In = {
     "PRIMO" : ["Tagliatelle al pomodore e funghi \n" + primiFissi,
