@@ -76,10 +76,26 @@ settimana4Au = {
                   "Patate al pomodoro \nCavolfiori gratinati \n" + contorniFissi,
                   "Patate al rosmarino \nFagiolini al pomodoro \n" + contorniFissi],
 }
-# todo: menu invernale, primaverile, estivo
+# todo: menu primaverile, estivo
 
-settimana1In = ""
-
+settimana1In = {
+    "PRIMO" : ["Pasta salsciia e zafferano \n" + primiFissi,
+               "Pasta all'arrabbiata \n" + primiFissi,
+               "Lasagne al ragù di manzo  \nMinestrone \n" + primiFissi,
+               "Pasta ai frutti di mare" + primiFissi,
+               "Orzotto ai funghi e speck \nMinestra di carote \n"+ primiFissi],
+    "SECONDO" : ["Grigliata mista di carne \nPolpette di soia \nFiletto di trota ai ferri \n" + secondiFissi,
+                 "Filetto di merluzzo dorato \nUova strapazzate \nPetto di pollo ai ferri \n" + secondiFissi,
+                 "Cosce di pollo alla diavola \nPiadina alle verdure \nFettina di bovino ai ferri \nTagliare di salumi tipici \n" + secondiFissi,
+                 "Seppie con piselli \nRotolo di frittata con formaggi \nBurger di tacchino ai ferri \n" + secondiFissi,
+                 "Goulasch di bovino \nFocaccia farcita con pomodorini o verdure e mozzarella \nFiletto di sgombro ai ferri \n" + secondiFissi],
+    "CONTORNO" : ["Crocchette di patate \nFagiolini al pomodoro \n" + contorniFissi,
+                  "Patate al forno \nSpinaci al vapore \n" + contorniFissi + "\nDolce",
+                  "Purè \nCavolfiori gratinati \n" + contorniFissi,
+                  "Patate gratinate \nZucchine trifolate" + contorniFissi + "\nDolce",
+                  "Patate in tecia \nCarote prezzemolate \n" + contorniFissi]
+}
+                 
 settimana2In = {
     "PRIMO" : ["Pasta ricotta e pomodoro \n" + primiFissi,
                 "Pasta integrale prosciutto cotto e panna \n Crema di piselli \n" + primiFissi,
