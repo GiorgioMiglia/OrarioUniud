@@ -79,7 +79,7 @@ settimana4Au = {
 # todo: menu primaverile, estivo
 
 settimana1In = {
-    "PRIMO" : ["Pasta salsciia e zafferano \n" + primiFissi,
+    "PRIMO" : ["Pasta salsciccia e zafferano \n" + primiFissi,
                "Pasta all'arrabbiata \n" + primiFissi,
                "Lasagne al ragù di manzo  \nMinestrone \n" + primiFissi,
                "Pasta ai frutti di mare" + primiFissi,
