@@ -35,7 +35,7 @@ settimana2Au = {
                  "Salsiccia al forno \nOmelette di radicchio \nFettina di bovino ai ferri \n" + secondiFissi,
                  "Filetto di salmone al forno \nPomodori farciti \(olive, capperi, Grana Padano\) \nFettina di pollo ai ferri \n" + secondiFissi],
     "CONTORNO" : ["Crocchette di patate \nBroccoli al vapore \n" + contorniFissi +"\nDolce",
-                  "Patate in tecia \n Finocchi gratinati \n" + contorniFissi,
+                  "Patate in tecia \nFinocchi gratinati \n" + contorniFissi,
                   "Purè di patate \nFagiolini al pomodoro \n" + contorniFissi + "\nDolce",
                   "Patate prezzemolate \nCarote all'olio \n" + contorniFissi,
                   "Patate alla paprika \nCavolini di Bruxelles al burro \n" + contorniFissi ]
@@ -82,7 +82,7 @@ settimana1In = {
     "PRIMO" : ["Pasta salsciccia e zafferano \n" + primiFissi,
                "Pasta all'arrabbiata \n" + primiFissi,
                "Lasagne al ragù di manzo  \nMinestrone \n" + primiFissi,
-               "Pasta ai frutti di mare" + primiFissi,
+               "Pasta ai frutti di mare \n" + primiFissi,
                "Orzotto ai funghi e speck \nMinestra di carote \n"+ primiFissi],
     "SECONDO" : ["Grigliata mista di carne \nPolpette di soia \nFiletto di trota ai ferri \n" + secondiFissi,
                  "Filetto di merluzzo dorato \nUova strapazzate \nPetto di pollo ai ferri \n" + secondiFissi,
@@ -92,15 +92,15 @@ settimana1In = {
     "CONTORNO" : ["Crocchette di patate \nFagiolini al pomodoro \n" + contorniFissi,
                   "Patate al forno \nSpinaci al vapore \n" + contorniFissi + "\nDolce",
                   "Purè \nCavolfiori gratinati \n" + contorniFissi,
-                  "Patate gratinate \nZucchine trifolate" + contorniFissi + "\nDolce",
+                  "Patate gratinate \nZucchine trifolate \n" + contorniFissi + "\nDolce",
                   "Patate in tecia \nCarote prezzemolate \n" + contorniFissi]
 }
                  
 settimana2In = {
     "PRIMO" : ["Pasta ricotta e pomodoro \n" + primiFissi,
-                "Pasta integrale prosciutto cotto e panna \n Crema di piselli \n" + primiFissi,
+                "Pasta integrale prosciutto cotto e panna \nCrema di piselli \n" + primiFissi,
                 "Ricciole di ricotta e spinaci \n" + primiFissi,
-                "Tagliatelle all'amatriciana \n Crema di zucchine e menta \n" + primiFissi,
+                "Tagliatelle all'amatriciana \nCrema di zucchine e menta \n" + primiFissi,
                 "Risotto al radicchio \n" + primiFissi],
     "SECONDO" : ["Braciola di suino tex mex \nFalafel \nTrancio di salmone ai ferri \n" + secondiFissi,
                  "Straccetti di pollo al curry \nStrudel di verdure \nFettina di suino ai ferri \n" + secondiFissi,
@@ -122,7 +122,7 @@ settimana3In = {
                "Pasta alla puttanesca \n" + primiFissi],
     "SECONDO" : ["Platessa alla mugnaia \nPiadina di verdure \nBurger di tacchino ai ferri \n" + secondiFissi,
                  "Fuselli di pollo al forno \nFrittata di formaggio \nPesce spada ai ferri \n" + secondiFissi,
-                 "Spalla di suino arrosto \nTorta salata \nFettina di manzo ai ferri \nTagliere di salumi" + secondiFissi,
+                 "Spalla di suino arrosto \nTorta salata \nFettina di manzo ai ferri \nTagliere di salumi \n" + secondiFissi,
                  "Coniglio alle erbe aromatiche \nPolpette riso e piselli \nBurger di trota ai ferri \n" + secondiFissi,
                  "Totani fritti \nUova al pomodoro \nBraciola di suino ai ferri \n" + secondiFissi],
     "CONTORNO" : ["Patate al rosmarino \nCavoletti di Bruxell all'olio \n" + contorniFissi,
@@ -134,20 +134,20 @@ settimana3In = {
 
 settimana4In = {
     "PRIMO" : ["Tagliatelle al pomodore e funghi \n" + primiFissi,
-                "Gnocchi alla romana \nZuppa di lenticchie" + primiFissi,
+                "Gnocchi alla romana \nZuppa di lenticchie \n" + primiFissi,
                 "Risotto zucca e robiola \n" + primiFissi,
                 "Pasta integrale alle verdure e zafferano \n" + primiFissi,
                 "Pasta tonno e olive \nVellutata piccante \n" + primiFissi],
     "SECONDO" : ["Bocconcini di vitello in camicia \nUova strapazzate \nFiletto di sgombro ai ferri \n" + secondiFissi,
                  "Fettina di suino alla milanese \nPomodori ripieni \nFettina di tacchino ai ferri \n" + secondiFissi,
                  "Salsiccia al forno \nOmelette ricotta e spinaci \nFiletto di troata ai ferri \nTagliere di salumi \n" + secondiFissi,
-                 "Scaloppina di pollo alla senape \nFalafel \n Fettina di suino ai ferri \n" + secondiFissi,
-                 "Filetto di salmone al limone \n Frico di patate \n Fettina di bovino ai ferri \n" + secondiFissi],
+                 "Scaloppina di pollo alla senape \nFalafel \nFettina di suino ai ferri \n" + secondiFissi,
+                 "Filetto di salmone al limone \nFrico di patate \nFettina di bovino ai ferri \n" + secondiFissi],
     "CONTORNO" : ["Purè \nMacedonia di verdure \n" + contorniFissi + "\nDolce",
                   "Patate fritte \nPiselli in tecia \n" + contorniFissi,
                   "Patate alla paprika \nBroccoli gratinati \n" + contorniFissi + "\nDolce",
                   "Patate al rosmarino \nFinocchi al burro \n" + contorniFissi,
-                  "Patate sabbiosa \nCarote prezzemolate" + contorniFissi]
+                  "Patate sabbiosa \nCarote prezzemolate \n" + contorniFissi]
 }              
 
 
@@ -159,15 +159,16 @@ helpMenu = ("Con il ridotto puoi prendere:\n"
              "\n"
              "Con l'intero puoi prendere:\n"
              "- Pizza, contorno, dolce\n"
-             "- Primo, secondo, pane, contorno, dolce"
+             "- Primo, secondo, pane, contorno, dolce\n\n"
+             "Al posto del dolce si può prendere un buono per uno frozen jogurt al bar Yellow Pecora (chiedere in cassa)"
              )
 
-settimaneAutunno = [settimana1Au, settimana2Au, settimana3Au, settimana4Au]
-settimaneInverno = [settimana1In, settimana2In, settimana3In, settimana4In] #cambiando l'ordine delle settiane in questo array si possono correggere le differenze (guarda comento sotto)
+settimaneAutunno = [settimana2Au, settimana3Au, settimana4Au, settimana1Au]
+settimaneInverno = [settimana3In, settimana4In, settimana1In, settimana2In] #gli array sono stati riordinati
 
 
 def getWeek(weekNumber):
-    x = (weekNumber+2)%4 #per il menù autunnale +1, per invernale +2???? mensa rizzi ma che combini
+    x = (weekNumber)%4
     if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
         return settimaneInverno[x]
     return settimaneAutunno[x]
