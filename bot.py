@@ -111,7 +111,7 @@ def getMenu(update: Update, context: CallbackContext): # risponde a /menu <msg>,
     weekNumber = date.today().isocalendar()[1] + day[1]
     week = menu.getWeek(weekNumber)
     if week == "":
-        update.message.reply_text("Il menù invernale di questa settimana non è ancora stato inserito, sarà caricato sul bot non appena verrà reso disponibile [qui](http://www.ardiss.fvg.it/contenuti.php?view=page&id=214)", parse_mode=PARSEMODE_MARKDOWN_V2)
+        update.message.reply_text("Il menù di questa settimana non è ancora stato inserito, sarà caricato sul bot non appena verrà reso disponibile [qui](http://www.ardiss.fvg.it/contenuti.php?view=page&id=214)", parse_mode=PARSEMODE_MARKDOWN_V2)
     else:
         if day[1] == -1:
             update.message.reply_text("La mensa è chiusa nel fine settimana\nIl menù di Venerdì era:", parse_mode=PARSEMODE_MARKDOWN_V2)

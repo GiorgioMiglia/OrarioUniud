@@ -169,6 +169,8 @@ settimaneInverno = [settimana3In, settimana4In, settimana1In, settimana2In] #gli
 
 def getWeek(weekNumber):
     x = (weekNumber)%4
-    if weekNumber in range(2, 20): #20 è un numero arbitrario sufficentemente grande
+    if weekNumber in range(2, 13): #20 è un numero arbitrario sufficentemente grande
         return settimaneInverno[x]
+    elif weekNumber in range(14, 30):
+        return ""
     return settimaneAutunno[x]
